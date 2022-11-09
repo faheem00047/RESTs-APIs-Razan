@@ -5,7 +5,7 @@ var db = require(__path + '/database/db');
 try {
 var zahirr = db.get("zahirr");
 } catch (e) {
-	console.log('')  
+    console.log('')  
 }
  
 var creator = "Razan"
@@ -29,8 +29,8 @@ var { color, bgcolor } = require(__path + '/lib/color.js');
 var { fetchJson } = require(__path + '/lib/fetcher.js');
 var options = require(__path + '/lib/options.js');
 var {
-	Searchnabi,
-	Gempa
+    Searchnabi,
+    Gempa
 } = require('./../lib');
 
 var {
@@ -246,19 +246,15 @@ router.post("/apikey", async (req, res, next) => {
 // delete apikey
 
 router.delete("/apikey", async(req, res, next) => {
-	const key = req.query.delete;
-	if(listkey.includes(key)) {
-		res.json({
-            status: false,
-            creator: `${creator}`,
-			message: 'apikey tidak ada sebelumnya'
-			})
-			} else {
-	listkey.splice(key, 1)
-	res.json({
-        status: true,
-        creator: `${creator}`,
-		message: 'apikey berhasil dihapus' 
+    const key = req.query.delete;
+    if(listkey.includes(key)) {
+        res.json({
+            message: 'apikey tidak ada sebelumnya'
+            })
+            } else {
+    listkey.splice(key, 1)
+    res.json({
+        message: 'apikey berhasil dihapus' 
 });
  }
 });
@@ -454,13 +450,7 @@ router.get('/music/joox', async(req, res, next) => {
   Joox(query)
   .then((result) => {
   res.json(result)
-    res.json({
-        status: true,
-        creator: `${creator}`
-        result: {
-            result
-        }
-    })
+    res.json(result)
   });
   } else {
     res.json(loghandler.invalidKey)
@@ -482,13 +472,11 @@ router.get('/music/spotify', async(req, res, next) => {
              res.json({
                  status : true,
                  creator : `${creator}`,
-                 result: {
-                    result
-                 }
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -506,9 +494,7 @@ router.get('/download/ytmp3', async(req, res, next) => {
         status: true,
         code: 200,
         creator: `${creator}`,
-        result: {
-            result
-        }
+        result
       })
     })
     .catch((error) => {
@@ -516,7 +502,7 @@ router.get('/download/ytmp3', async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -533,16 +519,14 @@ router.get('/download/ytmp4', async(req, res, next) => {
         status: true,
         code: 200,
         creator: `${creator}`,
-        result: {
-            result
-        }
+        result
       })
     })
     .catch((error) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -555,13 +539,7 @@ router.get("/yt/playmp3", async(req, res, next) => {
     if(listkey.includes(apikey)){
     ytPlayMp3(query)
         .then((result) => {
-            res.json({
-                status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
-            });
+            res.json(result);
         })
         .catch((error) => {
             res.json(error);
@@ -582,13 +560,7 @@ router.get("/yt/playmp4", async(req, res, next) => {
     if(listkey.includes(apikey)){
     ytPlayMp4(query)
         .then((result) => {
-            res.json({
-                status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
-            });
+            res.json(result);
         })
         .catch((error) => {
             res.json(error);
@@ -609,11 +581,10 @@ router.get('/yt/search', async(req, res, next) => {
     ytSearch(query)
         .then((result) => {
             res.json({
-                status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
+              status: true,
+              code: 200,
+              creator: `${creator}`,
+              result
             })
         })
         .catch((error) => {
@@ -628,18 +599,17 @@ router.get('/download/tiktok', async (req, res, next) => {
     var Apikey = req.query.apikey,
         url = req.query.url
 
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
      if (!url) return res.json(loghandler.noturl)
      TiktokDownloader(`${url}`)
         .then(data => {
         var result = data.result;
              res.json({
-                status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
+               status: true,
+               code: 200,
+               creator: `${creator}`,
+               result
              })
          })
          .catch((error) => {
@@ -659,18 +629,17 @@ router.get('/download/ig', async(req, res, next) => {
   igDownloader(url)
     .then((result) => {
       res.json({
-                status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
+        status: true,
+        code: 200,
+        creator: `${creator}`,
+        result
       })
     })
     .catch((error) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -683,18 +652,17 @@ router.get('/download/ig2', async(req, res, next) => {
   igdl(url)
     .then((result) => {
       res.json({
-                status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
+        status: true,
+        code: 200,
+        creator: `${creator}`,
+        result
       })
     })
     .catch((error) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -712,15 +680,13 @@ router.get('/download/stickerline', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -741,15 +707,13 @@ router.get('/download/smule', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -770,15 +734,13 @@ router.get('/download/joox3', async(req, res, next) => {
 
         var result = hasil.data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -799,15 +761,13 @@ router.get('/download/joox2', async(req, res, next) => {
 
         var result = hasil.lirik;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -828,15 +788,13 @@ router.get('/download/apkdl', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -857,15 +815,13 @@ router.get('/download/apk', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -886,15 +842,13 @@ router.get('/download/googleimg', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -915,15 +869,13 @@ router.get('/download/mediafire', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -944,15 +896,13 @@ router.get('/stalk/github', async(req, res, next) => {
 
         var result = hasil.data.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -973,15 +923,13 @@ router.get('/stalk/ig', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1002,15 +950,13 @@ router.get('/downloader/wallpaperflare', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1031,15 +977,13 @@ router.get('/download/ytmp32', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1060,15 +1004,13 @@ router.get('/download/ytmp42', async(req, res, next) => {
 
         var result = hasil.getVideo;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1089,15 +1031,13 @@ router.get('/download/shoppe', async(req, res, next) => {
 
         var result = hasil.data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1118,15 +1058,13 @@ router.get('/primbon/zodiak', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1147,15 +1085,13 @@ router.get('/primbon/artimimpi', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1176,15 +1112,13 @@ router.get('/primbon/artinama', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1205,15 +1139,13 @@ router.get('/download/unplash', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1234,15 +1166,13 @@ router.get('/download/sticker', async(req, res, next) => {
 
         var result = hasil.sticker;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1263,15 +1193,13 @@ router.get('/downloader/xnxx', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1292,15 +1220,13 @@ router.get('/downloader/twittervid', async(req, res, next) => {
 
         var result = hasil.getVideo;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1321,15 +1247,13 @@ router.get('/downloader/twitterimg', async(req, res, next) => {
 
         var result = hasil.images;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1350,15 +1274,13 @@ router.get('/downloader/xvideo', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1379,15 +1301,13 @@ router.get('/downloader/pornhub', async(req, res, next) => {
 
         var result = hasil.res;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1408,15 +1328,13 @@ router.get('/downloader/pinterest', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1437,15 +1355,13 @@ router.get('/downloader/igtv', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1466,15 +1382,13 @@ router.get('/download/tiktok3', async(req, res, next) => {
 
         var result = hasil.link;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1495,15 +1409,13 @@ router.get('/download/tiktok2', async(req, res, next) => {
 
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1524,15 +1436,13 @@ router.get('/downloader/facebook2', async(req, res, next) => {
 
         var result = hasil.data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1553,15 +1463,13 @@ router.get('/downloader/facebook', async(req, res, next) => {
 
         var result = hasil.data.url;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
   res.json(loghandler.invalidKey)
@@ -1573,8 +1481,8 @@ router.get('/downloader/fb2', async (req, res, next) => {
         var Apikey = req.query.apikey,
             url = req.query.url
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
     if (!url) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter url"})
 
        FB(url)
@@ -1583,14 +1491,11 @@ router.get('/downloader/fb2', async (req, res, next) => {
            status: true,
            code: 200,
            creator: `${creator}`,
-           result: {
-                title: data.title,
-                desc: data.deskripsi,
-                durasi: data.durasi,
-                thumb: data.thumbnail,
-                result: data.hd
-           }
-           
+           title: data.title,
+           desc: data.deskripsi,
+           durasi: data.durasi,
+           thumb: data.thumbnail,
+           result: data.hd
          })
        });
 } else {
@@ -1608,18 +1513,17 @@ router.get('/downloader/fb', async (req, res, next) => {
        fbDownloader(`${url}`)
        .then((result) => {
             res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                }
+        status: true,
+        code: 200,
+        creator: `${creator}`,
+        result
       })
     })
     .catch((error) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -1627,19 +1531,17 @@ router.get('/stalk/tiktok', async (req, res, next) => {
     var Apikey = req.query.apikey,
         username = req.query.username
 
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
     if (!username) return res.json(loghandler.notusername)
 
 
     TikTokScraper.getUserProfileInfo(username)
         .then(user => {
             res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    user
-                }
+                status : true,
+                creator : `${creator}`,
+                result : user
             })
         })
         .catch(e => {
@@ -1663,18 +1565,17 @@ router.get('/stalk/ig2', async(req, res, next) => {
   igStalk(username)
     .then((result) => {
       res.json({
-            status: true,
-            creator: `${creator}`,
-            result: {
-                result
-            }
+        status : true,
+        code: 200,
+        creator : `${creator}`,
+        result
       });
     })
     .catch((err) => {
       res.json(err);
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -1683,8 +1584,8 @@ router.get('/stalk/npm', async (req, res, next) => {
         var Apikey = req.query.apikey,
             query = req.query.query
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
     if (!query) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter query"})
 
        fetch(encodeURI(`https://registry.npmjs.org/${query}`))
@@ -1692,15 +1593,13 @@ router.get('/stalk/npm', async (req, res, next) => {
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                creator: `${creator}`,
-                result: {
-                    result
-                }
+                 status : true,
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -1709,7 +1608,7 @@ res.json(loghandler.invalidKey)
 
 router.get('/random/faktaunik', async (req, res, next) => {
         var Apikey = req.query.apikey
-	if(!Apikey) return res.json(loghandler.notparam)
+    if(!Apikey) return res.json(loghandler.notparam)
         if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`http://kocakz.herokuapp.com/api/random/text/faktaunik`))
@@ -1717,15 +1616,12 @@ router.get('/random/faktaunik', async (req, res, next) => {
         .then(hasil => {
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                 }
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -1734,7 +1630,7 @@ res.json(loghandler.invalidKey)
 
 router.get('/random/katabijak', async (req, res, next) => {
         var Apikey = req.query.apikey
-	if(!Apikey) return res.json(loghandler.notparam)
+    if(!Apikey) return res.json(loghandler.notparam)
         if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`http://kocakz.herokuapp.com/api/random/text/katabijak`))
@@ -1742,15 +1638,12 @@ router.get('/random/katabijak', async (req, res, next) => {
         .then(hasil => {
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                 }
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -1759,7 +1652,7 @@ res.json(loghandler.invalidKey)
 
 router.get('/random/pantun', async (req, res, next) => {
         var Apikey = req.query.apikey
-	if(!Apikey) return res.json(loghandler.notparam)
+    if(!Apikey) return res.json(loghandler.notparam)
         if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`http://kocakz.herokuapp.com/api/random/text/pantun`))
@@ -1767,15 +1660,12 @@ router.get('/random/pantun', async (req, res, next) => {
         .then(hasil => {
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                 }
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -1786,24 +1676,21 @@ router.get('/random/fancytext', async (req, res, next) => {
         var Apikey = req.query.apikey
              text = req.query.text 
   
-	if(!Apikey) return res.json(loghandler.notparam)
+    if(!Apikey) return res.json(loghandler.notparam)
         if(!text) return res.json(loghandler.nottext)
-	if(listkey.includes(Apikey)){
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`http://kocakz.herokuapp.com/api/random/text/fancytext?text=${text}`))
         .then(response => response.json())
         .then(hasil => {
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                 }
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -1813,23 +1700,20 @@ res.json(loghandler.invalidKey)
 router.get('/random/quotes', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`http://kocakz.herokuapp.com/api/random/text/quotes`))
         .then(response => response.json())
         .then(hasil => {
         var result = hasil.result;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                 }
+                 creator : `${creator}`,
+                 result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -1851,29 +1735,27 @@ Axios.get('https://jadwalnonton.com/now-playing')
      let title = []
      let url = []
      let img = []
- 	$('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a').get().map((rest) => {
+    $('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a').get().map((rest) => {
          url.push($(rest).attr('href'))
          })
          $('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a > img').get().map((rest) => {
-        	title.push($(rest).attr('alt'))
+            title.push($(rest).attr('alt'))
          })
          $('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a > img').get().map((rest) => {
-        	img.push($(rest).attr('src'))
+            img.push($(rest).attr('src'))
          })
      let result = []
      for (let i = 0; i < url.length; i++) {
           result.push({
-               	url: url[i],
-               	title: title[i],
-               	img: img[i]
+                url: url[i],
+                title: title[i],
+                img: img[i]
           })
      }
      res.json({
+     creator:  `${creator}`,
      status: true,
-            creator: `${creator}`,
-            result: {
-            result
-            }
+     result: result
      })
 })
 } else {
@@ -1885,17 +1767,15 @@ router.get('/short/tinyurl', async (req, res, next) => {
     var Apikey = req.query.apikey,
         url = req.query.url
 
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
      if (!url) return res.json(loghandler.noturl)
      request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
          try {
              res.json({
-                 status: true,
-                 creator: `${creator}`,
-                 result: {
-                    result
-                 }
+                 status : true,
+                 creator : `${creator}`,
+                 result : `${body}`
              })
          } catch (e) {
              console.log('Error :', color(e,'red'))
@@ -1908,67 +1788,59 @@ res.json(loghandler.invalidKey)
 })
 
 router.get('/base', async (req, res, next) => {
-	var type = req.query.type,
-		encode = req.query.encode,
-		decode = req.query.decode,
-		Apikey = req.query.apikey;
-		if (!Apikey) return res.json(loghandler.notparam)
-		if (listkey.includes(Apikey)){
-		if (!type) return res.json({status: false, creator, code: 404, message: 'masukan parameter type, type yang tersedia : base64 , base32'})
-		if (type == 'base64' && encode){
-				Base("b64enc", encode)
-				.then(result => {
-					res.json({
-						status: true,
+    var type = req.query.type,
+        encode = req.query.encode,
+        decode = req.query.decode,
+        Apikey = req.query.apikey;
+        if (!Apikey) return res.json(loghandler.notparam)
+        if (listkey.includes(Apikey)){
+        if (!type) return res.json({status: false, creator, code: 404, message: 'masukan parameter type, type yang tersedia : base64 , base32'})
+        if (type == 'base64' && encode){
+                Base("b64enc", encode)
+                .then(result => {
+                    res.json({
+                        status:true,
                         creator: `${creator}`,
-                        result: {
-                            result
-                        }
-					})
-				})
-			} else if (type == 'base64' && decode){
-				Base("b64dec", decode)
-				.then(result => {
-					res.json({
-						sstatus: true,
-                        reator: `${creator}`,
-                        result: {
-                            result
-                        }
-					})
-				})
-			} else if (type == 'base32' && encode){
-				Base('b32enc', encode)
-				.then(result => {
-					res.json({
-					   status: true,
+                        result
+                    })
+                })
+            } else if (type == 'base64' && decode){
+                Base("b64dec", decode)
+                .then(result => {
+                    res.json({
+                        status: true,
                         creator: `${creator}`,
-                        result: {
-                            result
-                        }
-					})
-				})
-			} else if (type == 'base32' && decode){
-				Base('b32dec', decode)
-				.then(result => {
-					res.json({
-						status: true,
+                        result
+                    })
+                })
+            } else if (type == 'base32' && encode){
+                Base('b32enc', encode)
+                .then(result => {
+                    res.json({
+                        status:true,
                         creator: `${creator}`,
-                        result: {
-                            result
-                        }
-					})
-				})
-			} else if(!(encode || decode)){
-				res.json({
-					status:false,
-					creator: `${creator}`,
-					message: "tambahkan parameter encode/decode"
-				})
-			} else {
-				res.json(loghandler.error)
-			}
-	} else {
+                        result
+                    })
+                })
+            } else if (type == 'base32' && decode){
+                Base('b32dec', decode)
+                .then(result => {
+                    res.json({
+                        status:true,
+                        creator: `${creator}`,
+                        result
+                    })
+                })
+            } else if(!(encode || decode)){
+                res.json({
+                    status:false,
+                    creator: `${creator}`,
+                    message: "tambahkan parameter encode/decode"
+                })
+            } else {
+                res.json(loghandler.error)
+            }
+    } else {
 res.json(loghandler.invalidKey)
 }
 });
@@ -2006,46 +1878,45 @@ router.get('/info/cuaca', async(req, res, next) => {
   }
 })
 router.get('/info/gempa', async (req, res, next) => {
-	        var Apikey = req.query.apikey
+            var Apikey = req.query.apikey
 
-		if (!Apikey) return res.json(loghandler.notparam)
-		if (listkey.includes(Apikey)){
-		Gempa()
-		.then(result => {
-			res.json({
-				 status: true,
-                 creator: `${creator}`,
-                 result
-		})
-		.catch(e => {
-			console.log('Error :', color(e, 'red'))
-			res.json(loghandler.error)
-		})
-	} else {
+        if (!Apikey) return res.json(loghandler.notparam)
+        if (listkey.includes(Apikey)){
+        Gempa()
+        .then(result => {
+            res.json({
+                creator: creator,
+                result
+            })
+        })
+        .catch(e => {
+            console.log('Error :', color(e, 'red'))
+            res.json(loghandler.error)
+        })
+    } else {
 res.json(loghandler.invalidKey)
 }
 })
 
 
 router.get('/muslim/kisahnabi', async (req, res, next) => {
-	var nabi = req.query.nabi,
-		Apikey = req.query.apikey;
+    var nabi = req.query.nabi,
+        Apikey = req.query.apikey;
 
-		if (!Apikey) return res.json(loghandler.notparam)
-		if (listkey.includes(Apikey)){
-		Searchnabi(nabi)
-		.then(result => {
-			res.json({
-				 status: true,
-                 creator: `${creator}`,
-                 result
-			})
-		})
-		.catch(e => {
-			console.log('Error :', color(e, 'red'))
-			res.json(loghandler.error)
-		})
-	} else {
+        if (!Apikey) return res.json(loghandler.notparam)
+        if (listkey.includes(Apikey)){
+        Searchnabi(nabi)
+        .then(result => {
+            res.json({
+                creator: creator,
+                result
+            })
+        })
+        .catch(e => {
+            console.log('Error :', color(e, 'red'))
+            res.json(loghandler.error)
+        })
+    } else {
 res.json(loghandler.invalidKey)
 }
 })
@@ -2055,8 +1926,8 @@ router.get('/muslim/hadits', async (req, res, next) => {
         var Apikey = req.query.apikey,
             kitab = req.query.kitab,
             nomor = req.query.nomor
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
     if (!kitab) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kitab"})
     if (!nomor) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter nomor"})
 
@@ -2068,7 +1939,7 @@ router.get('/muslim/hadits', async (req, res, next) => {
              )
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2081,8 +1952,8 @@ router.get('/muslim/quran', async (req, res, next) => {
             surah = req.query.surah,
             ayat = req.query.ayat
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
     if (!surah) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter surah"})
     if (!ayat) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter ayat"})
 
@@ -2091,13 +1962,11 @@ router.get('/muslim/quran', async (req, res, next) => {
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2107,20 +1976,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/tahlil', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataTahlil.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
+             })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2131,21 +1999,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/wirid', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataWirid.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2156,21 +2022,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/ayatkursi', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataAyatKursi.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2181,21 +2045,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/doaharian', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataDoaHarian.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2206,21 +2068,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/bacaanshalat', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataBacaanShalat.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2231,21 +2091,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/niatshalat', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataNiatShalat.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2256,21 +2114,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/kisahnabi', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataKisahNabi.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2281,11 +2137,11 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/asmaulhusna', async (req, res, next) => {
         var Apikey = req.query.apikey
 
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
-	asmaul = JSON.parse(fs.readFileSync(__path +'/data/AsmaulHusna.json'));
-	res.json(asmaul)
+    asmaul = JSON.parse(fs.readFileSync(__path +'/data/AsmaulHusna.json'));
+    res.json(asmaul)
 } else {
 res.json(loghandler.invalidKey)
 }
@@ -2295,21 +2151,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/niatshubuh', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatShubuh.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2320,21 +2174,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/niatdzuhur', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatDzuhur.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2345,21 +2197,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/niatmaghrib', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatMaghrib.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2370,21 +2220,19 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/niatisya', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatIsya.json`))
         .then(response => response.json())
         .then(data => {
         var result = data;
              res.json({
-                 status: true,
-                 creator: `${creator}`,
                  result
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2395,8 +2243,8 @@ res.json(loghandler.invalidKey)
 router.get('/muslim/niatashar', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatAshar.json`))
         .then(response => response.json())
@@ -2407,7 +2255,7 @@ router.get('/muslim/niatashar', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2417,8 +2265,8 @@ router.get('/muslim/jadwalshalat', async (req, res, next) => {
         var Apikey = req.query.apikey,
             kota = req.query.kota
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!kota) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kota"})
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/Zhirrr-Database/main/adzan/${kota}/2021/03.json`))
@@ -2430,7 +2278,7 @@ router.get('/muslim/jadwalshalat', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -2480,8 +2328,8 @@ router.get('/search/image', async(req, res, next) => {
 router.get('/nsfw/ahegao', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const ahegao = JSON.parse(fs.readFileSync(__path +'/data/ahegao.json'));
   const randahegao = ahegao[Math.floor(Math.random() * ahegao.length)];
@@ -2496,8 +2344,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/ass', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const ass = JSON.parse(fs.readFileSync(__path +'/data/ass.json'));
   const randass = ass[Math.floor(Math.random() * ass.length)];
@@ -2512,8 +2360,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/bdsm', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const bdsm = JSON.parse(fs.readFileSync(__path +'/data/bdsm.json'));
   const randbdsm = bdsm[Math.floor(Math.random() * bdsm.length)];
@@ -2528,8 +2376,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/blowjob', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const blowjob = JSON.parse(fs.readFileSync(__path +'/data/blowjob.json'));
   const randblowjob = blowjob[Math.floor(Math.random() * blowjob.length)];
@@ -2544,8 +2392,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/cuckold', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cuckold = JSON.parse(fs.readFileSync(__path +'/data/cuckold.json'));
   const randcuckold = cuckold[Math.floor(Math.random() * cuckold.length)];
@@ -2560,8 +2408,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/cum', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cum = JSON.parse(fs.readFileSync(__path +'/data/cum.json'));
   const randcum = cum[Math.floor(Math.random() * cum.length)];
@@ -2576,8 +2424,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/ero', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const ero = JSON.parse(fs.readFileSync(__path +'/data/ero.json'));
   const randero = ero[Math.floor(Math.random() * ero.length)];
@@ -2592,8 +2440,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/femdom', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const femdom = JSON.parse(fs.readFileSync(__path +'/data/femdom.json'));
   const randfemdom = femdom[Math.floor(Math.random() * femdom.length)];
@@ -2608,8 +2456,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/foot', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const foot = JSON.parse(fs.readFileSync(__path +'/data/foot.json'));
   const randfoot = foot[Math.floor(Math.random() * foot.length)];
@@ -2624,8 +2472,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/gangbang', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const gangbang = JSON.parse(fs.readFileSync(__path +'/data/gangbang.json'));
   const randgangbang = gangbang[Math.floor(Math.random() * gangbang.length)];
@@ -2640,8 +2488,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/glasses', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const glasses = JSON.parse(fs.readFileSync(__path +'/data/glasses.json'));
   const randglasses = glasses[Math.floor(Math.random() * glasses.length)];
@@ -2656,8 +2504,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/hentai', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const hentai = JSON.parse(fs.readFileSync(__path +'/data/hentai.json'));
   const randhentai = hentai[Math.floor(Math.random() * hentai.length)];
@@ -2672,8 +2520,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/gifs', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const gifs = JSON.parse(fs.readFileSync(__path +'/data/gifs.json'));
   const randgifs = gifs[Math.floor(Math.random() * gifs.length)];
@@ -2688,8 +2536,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/jahy', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const jahy = JSON.parse(fs.readFileSync(__path +'/data/jahy.json'));
   const randjahy = jahy[Math.floor(Math.random() * jahy.length)];
@@ -2704,8 +2552,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/manga', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const manga = JSON.parse(fs.readFileSync(__path +'/data/manga.json'));
   const randmanga = manga[Math.floor(Math.random() * manga.length)];
@@ -2720,8 +2568,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/masturbation', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const masturbation = JSON.parse(fs.readFileSync(__path +'/data/masturbation.json'));
   const randmasturbation = masturbation[Math.floor(Math.random() * masturbation.length)];
@@ -2736,8 +2584,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/neko', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const neko = JSON.parse(fs.readFileSync(__path +'/data/neko.json'));
   const randneko = neko[Math.floor(Math.random() * neko.length)];
@@ -2752,8 +2600,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/orgy', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const orgy = JSON.parse(fs.readFileSync(__path +'/data/orgy.json'));
   const randorgy = orgy[Math.floor(Math.random() * orgy.length)];
@@ -2768,8 +2616,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/panties', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const panties = JSON.parse(fs.readFileSync(__path +'/data/panties.json'));
   const randpanties = panties[Math.floor(Math.random() * panties.length)];
@@ -2784,8 +2632,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/pussy', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const pussy = JSON.parse(fs.readFileSync(__path +'/data/pussy.json'));
   const randpussy = pussy[Math.floor(Math.random() * pussy.length)];
@@ -2800,8 +2648,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/neko2', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const neko2 = JSON.parse(fs.readFileSync(__path +'/data/neko2.json'));
   const randneko2 = neko2[Math.floor(Math.random() * neko2.length)];
@@ -2816,8 +2664,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/tentacles', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const tentacles = JSON.parse(fs.readFileSync(__path +'/data/tentacles.json'));
   const randtentacles = tentacles[Math.floor(Math.random() * tentacles.length)];
@@ -2832,8 +2680,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/thighs', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const thighs = JSON.parse(fs.readFileSync(__path +'/data/thighs.json'));
   const randthighs = thighs[Math.floor(Math.random() * thighs.length)];
@@ -2848,8 +2696,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/yuri', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const yuri = JSON.parse(fs.readFileSync(__path +'/data/yuri.json'));
   const randyuri = yuri[Math.floor(Math.random() * yuri.length)];
@@ -2864,8 +2712,8 @@ res.json(loghandler.invalidKey)
 router.get('/nsfw/zettai', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const zettai = JSON.parse(fs.readFileSync(__path +'/data/zettai.json'));
   const randzettai = zettai[Math.floor(Math.random() * zettai.length)];
@@ -2880,8 +2728,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/keneki', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const keneki = JSON.parse(fs.readFileSync(__path +'/data/keneki.json'));
   const randkeneki = keneki[Math.floor(Math.random() * keneki.length)];
@@ -2896,8 +2744,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/megumin', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const megumin = JSON.parse(fs.readFileSync(__path +'/data/megumin.json'));
   const randmegumin = megumin[Math.floor(Math.random() * megumin.length)];
@@ -2912,8 +2760,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/yotsuba', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const yotsuba = JSON.parse(fs.readFileSync(__path +'/data/yotsuba.json'));
   const randyotsuba = yotsuba[Math.floor(Math.random() * yotsuba.length)];
@@ -2928,8 +2776,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/shinomiya', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const shinomiya = JSON.parse(fs.readFileSync(__path +'/data/shinomiya.json'));
   const randshinomiya = shinomiya[Math.floor(Math.random() * shinomiya.length)];
@@ -2944,8 +2792,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/yumeko', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const yumeko = JSON.parse(fs.readFileSync(__path +'/data/yumeko.json'));
   const randyumeko = yumeko[Math.floor(Math.random() * yumeko.length)];
@@ -2960,8 +2808,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/tejina', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const tejina = JSON.parse(fs.readFileSync(__path +'/data/tejina.json'));
   const randtejina = tejina[Math.floor(Math.random() * tejina.length)];
@@ -2976,8 +2824,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/chiho', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const chiho = JSON.parse(fs.readFileSync(__path +'/data/chiho.json'));
   const randchiho = chiho[Math.floor(Math.random() * chiho.length)];
@@ -2992,8 +2840,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cyberspace = JSON.parse(fs.readFileSync(__path +'/data/CyberSpace.json'));
   const randcyberspace = cyberspace[Math.floor(Math.random() * cyberspace.length)];
@@ -3008,8 +2856,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/gaming', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const gaming = JSON.parse(fs.readFileSync(__path +'/data/GameWallp.json'));
   const randgaming = gaming[Math.floor(Math.random() * gaming.length)];
@@ -3024,8 +2872,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/islami', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const islami = JSON.parse(fs.readFileSync(__path +'/data/Islamic.json'));
   const randislami = islami[Math.floor(Math.random() * islami.length)];
@@ -3040,8 +2888,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/programing', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const programing = JSON.parse(fs.readFileSync(__path +'/data/Programming.json'));
   const randprograming = programing[Math.floor(Math.random() * programing.length)];
@@ -3056,8 +2904,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/teknologi', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const teknologi = JSON.parse(fs.readFileSync(__path +'/data/Technology.json'));
   const randteknologi = teknologi[Math.floor(Math.random() * teknologi.length)];
@@ -3072,8 +2920,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/mountain', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const mountain = JSON.parse(fs.readFileSync(__path +'/data/Mountain.json'));
   const randmountain = mountain[Math.floor(Math.random() * mountain.length)];
@@ -3088,8 +2936,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/tatasurya', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const tatasurya = JSON.parse(fs.readFileSync(__path +'/data/tatasurya.json'));
   const randtatasurya = tatasurya[Math.floor(Math.random() * tatasurya.length)];
@@ -3104,8 +2952,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kartun', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const kartun = JSON.parse(fs.readFileSync(__path +'/data/kartun.json'));
   const randkartun = kartun[Math.floor(Math.random() * kartun.length)];
@@ -3120,8 +2968,8 @@ res.json(loghandler.invalidKey)
 router.get('/random/yuli', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const yuli = JSON.parse(fs.readFileSync(__path +'/data/yulibocil.json'));
   const randyuli = yuli[Math.floor(Math.random() * yuli.length)];
@@ -3136,8 +2984,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/pentol', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const pentol = JSON.parse(fs.readFileSync(__path +'/data/pentol.json'));
   const randpentol = pentol[Math.floor(Math.random() * pentol.length)];
@@ -3152,8 +3000,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/katakata', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const katakata = JSON.parse(fs.readFileSync(__path +'/data/katakata.json'));
   const randkatakata = katakata[Math.floor(Math.random() * katakata.length)];
@@ -3168,8 +3016,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/toukachan', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const toukachan = JSON.parse(fs.readFileSync(__path +'/data/toukachan.json'));
   const randtoukachan = toukachan[Math.floor(Math.random() * toukachan.length)];
@@ -3184,8 +3032,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/akira', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const akira = JSON.parse(fs.readFileSync(__path +'/data/akira.json'));
   const randakira = akira[Math.floor(Math.random() * akira.length)];
@@ -3200,8 +3048,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/itori', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const itori = JSON.parse(fs.readFileSync(__path +'/data/itori.json'));
   const randitori = itori[Math.floor(Math.random() * itori.length)];
@@ -3216,8 +3064,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kurumi', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const kurumi = JSON.parse(fs.readFileSync(__path +'/data/kurumi.json'));
   const randkurumi = kurumi[Math.floor(Math.random() * kurumi.length)];
@@ -3232,8 +3080,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/miku', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const miku = JSON.parse(fs.readFileSync(__path +'/data/miku.json'));
   const randmiku = miku[Math.floor(Math.random() * miku.length)];
@@ -3248,8 +3096,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/pokemon', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const pokemon = JSON.parse(fs.readFileSync(__path +'/data/pokemon.json'));
   const randpokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
@@ -3264,8 +3112,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/ryujin', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const ryujin = JSON.parse(fs.readFileSync(__path +'/data/ryujin.json'));
   const randryujin = ryujin[Math.floor(Math.random() * ryujin.length)];
@@ -3280,8 +3128,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/rose', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const rose = JSON.parse(fs.readFileSync(__path +'/data/rose.json'));
   const randrose = rose[Math.floor(Math.random() * rose.length)];
@@ -3296,8 +3144,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kaori', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const kaori = JSON.parse(fs.readFileSync(__path +'/data/kaori.json'));
   const randkaori = kaori[Math.floor(Math.random() * kaori.length)];
@@ -3312,8 +3160,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/shizuka', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const shizuka = JSON.parse(fs.readFileSync(__path +'/data/shizuka.json'));
   const randshizuka = shizuka[Math.floor(Math.random() * shizuka.length)];
@@ -3328,8 +3176,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kaga', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const kaga = JSON.parse(fs.readFileSync(__path +'/data/kaga.json'));
   const randkaga = kaga[Math.floor(Math.random() * kaga.length)];
@@ -3344,8 +3192,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kotori', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const kotori = JSON.parse(fs.readFileSync(__path +'/data/kotori.json'));
   const randkotori = kotori[Math.floor(Math.random() * kotori.length)];
@@ -3360,8 +3208,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/mikasa', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const mikasa = JSON.parse(fs.readFileSync(__path +'/data/mikasa.json'));
   const randmikasa = mikasa[Math.floor(Math.random() * mikasa.length)];
@@ -3376,8 +3224,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/akiyama', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const akiyama = JSON.parse(fs.readFileSync(__path +'/data/akiyama.json'));
   const randakiyama = akiyama[Math.floor(Math.random() * akiyama.length)];
@@ -3392,8 +3240,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/gremory', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const gremory = JSON.parse(fs.readFileSync(__path +'/data/gremory.json'));
   const randgremory = gremory[Math.floor(Math.random() * gremory.length)];
@@ -3408,8 +3256,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/isuzu', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const isuzu = JSON.parse(fs.readFileSync(__path +'/data/isuzu.json'));
   const randisuzu = isuzu[Math.floor(Math.random() * isuzu.length)];
@@ -3424,8 +3272,8 @@ res.json(loghandler.invalidKey)
 router.get('/random/cosplay', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cosplay = JSON.parse(fs.readFileSync(__path +'/data/cosplay.json'));
   const randcosplay = cosplay[Math.floor(Math.random() * cosplay.length)];
@@ -3440,8 +3288,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/shina', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const shina = JSON.parse(fs.readFileSync(__path +'/data/shina.json'));
   const randshina = shina[Math.floor(Math.random() * shina.length)];
@@ -3456,8 +3304,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kagura', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const kagura = JSON.parse(fs.readFileSync(__path +'/data/kagura.json'));
   const randkagura = kagura[Math.floor(Math.random() * kagura.length)];
@@ -3472,8 +3320,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/shinka', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const shinka = JSON.parse(fs.readFileSync(__path +'/data/shinka.json'));
   const randshinka = shinka[Math.floor(Math.random() * shinka.length)];
@@ -3488,8 +3336,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/eba', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const eba = JSON.parse(fs.readFileSync(__path +'/data/eba.json'));
   const randeba = eba[Math.floor(Math.random() * eba.length)];
@@ -3504,8 +3352,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/deidara', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Deidara = JSON.parse(fs.readFileSync(__path +'/data/deidara.json'));
   const randDeidara = Deidara[Math.floor(Math.random() * Deidara.length)];
@@ -3520,8 +3368,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/trans', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const trans = JSON.parse(fs.readFileSync(__path +'/data/trans.json'));
   const randtrans = trans[Math.floor(Math.random() * trans.length)];
@@ -3536,8 +3384,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/jeni', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const jeni = JSON.parse(fs.readFileSync(__path +'/data/jeni.json'));
   const randjeni = jeni[Math.floor(Math.random() * jeni.length)];
@@ -3552,8 +3400,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/jiso', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const jiso = JSON.parse(fs.readFileSync(__path +'/data/jiso.json'));
   const randjiso = jiso[Math.floor(Math.random() * jiso.length)];
@@ -3568,8 +3416,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/satanic', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const satanic = JSON.parse(fs.readFileSync(__path +'/data/satanic.json'));
   const randsatanic = satanic[Math.floor(Math.random() * satanic.length)];
@@ -3584,8 +3432,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/cecan2', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cecan2 = JSON.parse(fs.readFileSync(__path +'/data/cecan2.json'));
   const randcecan2 = cecan2[Math.floor(Math.random() * cecan2.length)];
@@ -3600,8 +3448,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/cogan2', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cogan2 = JSON.parse(fs.readFileSync(__path +'/data/cogan2.json'));
   const randcogan2 = cogan2[Math.floor(Math.random() * cogan2.length)];
@@ -3616,8 +3464,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/itachi', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Itachi = JSON.parse(fs.readFileSync(__path +'/data/itachi.json'));
   const randItachi = Itachi[Math.floor(Math.random() * Itachi.length)];
@@ -3632,8 +3480,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/madara', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Madara = JSON.parse(fs.readFileSync(__path +'/data/madara.json'));
   const randMadara = Madara[Math.floor(Math.random() * Madara.length)];
@@ -3648,8 +3496,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/yuki', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Yuki = JSON.parse(fs.readFileSync(__path +'/data/yuki.json'));
   const randYuki = Yuki[Math.floor(Math.random() * Yuki.length)];
@@ -3664,8 +3512,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/asuna', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const asuna = JSON.parse(fs.readFileSync(__path +'/data/asuna.json'));
   const randasuna = asuna[Math.floor(Math.random() * asuna.length)];
@@ -3680,8 +3528,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/ayuzawa', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const ayuzawa = JSON.parse(fs.readFileSync(__path +'/data/ayuzawa.json'));
   const randayuzawa = ayuzawa[Math.floor(Math.random() * ayuzawa.length)];
@@ -3696,8 +3544,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/chitoge', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const chitoge = JSON.parse(fs.readFileSync(__path +'/data/chitoge.json'));
   const randchitoge = chitoge[Math.floor(Math.random() * chitoge.length)];
@@ -3712,8 +3560,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/emilia', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const emilia = JSON.parse(fs.readFileSync(__path +'/data/emilia.json'));
   const randemilia = emilia[Math.floor(Math.random() * emilia.length)];
@@ -3728,8 +3576,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/hestia', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const hestia = JSON.parse(fs.readFileSync(__path +'/data/hestia.json'));
   const randhestia = hestia[Math.floor(Math.random() * hestia.length)];
@@ -3744,8 +3592,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/inori', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const inori = JSON.parse(fs.readFileSync(__path +'/data/inori.json'));
   const randinori = inori[Math.floor(Math.random() * inori.length)];
@@ -3760,8 +3608,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/ana', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const ana = JSON.parse(fs.readFileSync(__path +'/data/ana.json'));
   const randana = ana[Math.floor(Math.random() * ana.length)];
@@ -3776,8 +3624,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/boruto', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Boruto = JSON.parse(fs.readFileSync(__path +'/data/boruto.json'));
   const randBoruto = Boruto[Math.floor(Math.random() * Boruto.length)];
@@ -3792,8 +3640,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/erza', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Erza = JSON.parse(fs.readFileSync(__path +'/data/erza.json'));
   const randErza = Erza[Math.floor(Math.random() * Erza.length)];
@@ -3808,8 +3656,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kakasih', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Kakasih = JSON.parse(fs.readFileSync(__path +'/data/kakasih.json'));
   const randKakasih = Kakasih[Math.floor(Math.random() * Kakasih.length)];
@@ -3824,8 +3672,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/sagiri', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Sagiri = JSON.parse(fs.readFileSync(__path +'/data/sagiri.json'));
   const randSagiri = Sagiri[Math.floor(Math.random() * Sagiri.length)];
@@ -3840,8 +3688,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/minato', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Minato = JSON.parse(fs.readFileSync(__path +'/data/minato.json'));
   const randMinato = Minato[Math.floor(Math.random() * Minato.length)];
@@ -3856,8 +3704,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/naruto', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Naruto = JSON.parse(fs.readFileSync(__path +'/data/naruto.json'));
   const randNaruto = Naruto[Math.floor(Math.random() * Naruto.length)];
@@ -3872,8 +3720,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/nezuko', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Nezuko = JSON.parse(fs.readFileSync(__path +'/data/nezuko.json'));
   const randNezuko = Nezuko[Math.floor(Math.random() * Nezuko.length)];
@@ -3888,8 +3736,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/onepiece', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Pic = JSON.parse(fs.readFileSync(__path +'/data/onepiece.json'));
   const randPic = Pic[Math.floor(Math.random() * Pic.length)];
@@ -3904,8 +3752,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/rize', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Rize = JSON.parse(fs.readFileSync(__path +'/data/rize.json'));
   const randRize = Rize[Math.floor(Math.random() * Rize.length)];
@@ -3920,8 +3768,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/sakura', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Sakura = JSON.parse(fs.readFileSync(__path +'/data/sakura.json'));
   const randSakura = Sakura[Math.floor(Math.random() * Sakura.length)];
@@ -3936,8 +3784,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/sasuke', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Sasuke = JSON.parse(fs.readFileSync(__path +'/data/sasuke.json'));
   const randSasuke = Sasuke[Math.floor(Math.random() * Sasuke.length)];
@@ -3952,8 +3800,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/tsunade', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Su = JSON.parse(fs.readFileSync(__path +'/data/tsunade.json'));
   const randSu = Su[Math.floor(Math.random() * Su.length)];
@@ -3968,8 +3816,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/montor', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Mon = JSON.parse(fs.readFileSync(__path +'/data/montor.json'));
   const randMon = Mon[Math.floor(Math.random() * Mon.length)];
@@ -3984,8 +3832,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/mobil', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Mob = JSON.parse(fs.readFileSync(__path +'/data/mobil.json'));
   const randMob = Mob[Math.floor(Math.random() * Mob.length)];
@@ -4000,8 +3848,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/boneka-chucky', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Bon = JSON.parse(fs.readFileSync(__path +'/data/boneka.json'));
   const randBon = Bon[Math.floor(Math.random() * Bon.length)];
@@ -4016,8 +3864,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/anime', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Wai23 = JSON.parse(fs.readFileSync(__path +'/data/wallhp2.json'));
   const randWai23 = Wai23[Math.floor(Math.random() * Wai23.length)];
@@ -4032,8 +3880,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/random/blackpink', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Black = JSON.parse(fs.readFileSync(__path +'/data/blackpink.json'));
   const randBlack = Black[Math.floor(Math.random() * Black.length)]
@@ -4048,8 +3896,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/wallhp', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Wai22 = JSON.parse(fs.readFileSync(__path +'/data/wallhp.json'));
   const randWai22 = Wai22[Math.floor(Math.random() * Wai22.length)];
@@ -4064,8 +3912,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/waifu2', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Wai2 = JSON.parse(fs.readFileSync(__path +'/data/waifu2.json'));
   const randWai2 = Wai2[Math.floor(Math.random() * Wai2.length)];
@@ -4080,8 +3928,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/waifu', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Wai = JSON.parse(fs.readFileSync(__path +'/data/waifu.json'));
   const randWai = Wai[Math.floor(Math.random() * Wai.length)];
@@ -4096,8 +3944,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kpop', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Kpop = JSON.parse(fs.readFileSync(__path +'/data/kpop.json'));
   const randKpop = Kpop[Math.floor(Math.random() * Kpop.length)]
@@ -4112,8 +3960,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/hekel', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Hekel = JSON.parse(fs.readFileSync(__path +'/data/hekel.json'));
   const randHekel = Hekel[Math.floor(Math.random() * Hekel.length)]
@@ -4128,8 +3976,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/kucing', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Kucing = JSON.parse(fs.readFileSync(__path +'/data/kucing.json'));
   const randKucing = Kucing[Math.floor(Math.random() * Kucing.length)]
@@ -4144,8 +3992,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/pubg', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Pubg = JSON.parse(fs.readFileSync(__path +'/data/pubg.json'));
   const randPubg = Pubg[Math.floor(Math.random() * Pubg.length)]
@@ -4160,8 +4008,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/ppcouple', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Pp = JSON.parse(fs.readFileSync(__path +'/data/profil.json'));
   const randPp = Pp[Math.floor(Math.random() * Pp.length)]
@@ -4176,8 +4024,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/anjing', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Anjing = JSON.parse(fs.readFileSync(__path +'/data/anjing.json'));
   const randAnjing = Anjing[Math.floor(Math.random() * Anjing.length)]
@@ -4192,8 +4040,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/doraemon', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Dora = JSON.parse(fs.readFileSync(__path +'/data/doraemon.json'));
   const randDora = Dora[Math.floor(Math.random() * Dora.length)]
@@ -4208,8 +4056,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/cogan', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   Cogan = JSON.parse(fs.readFileSync(__path +'/data/cogan.json'));
   const randCogan = Cogan[Math.floor(Math.random() * Cogan.length)]
@@ -4224,8 +4072,8 @@ res.json(loghandler.invalidKey)
 
 router.get('/wallpaper/elaina', async (req, res, next) => {
         const Apikey = req.query.apikey;
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
 const Elaina = JSON.parse(fs.readFileSync(__path +'/data/elaina.json'))
 const randElaina = Elaina[Math.floor(Math.random() * Elaina.length)]
@@ -4241,8 +4089,8 @@ res.json(loghandler.invalidKey)
 
 router.get('/wallpaper/loli', async (req, res, next) => {
         const Apikey = req.query.apikey;
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
 const Loli = JSON.parse(fs.readFileSync(__path +'/data/loli.json'))
 const randLoli = Loli[Math.floor(Math.random() * Loli.length)]
@@ -4258,8 +4106,8 @@ res.json(loghandler.invalidKey)
 
 router.get('/wallpaper/yuri', async (req, res, next) => {
         const Apikey = req.query.apikey;
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
 const Yuri = JSON.parse(fs.readFileSync(__path +'/data/yuri.json'))
 const randYuri = Yuri[Math.floor(Math.random() * Yuri.length)]
@@ -4276,8 +4124,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/cecan', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const cecan = JSON.parse(fs.readFileSync(__path +'/data/cecan.json'));
   const randCecan = cecan[Math.floor(Math.random() * cecan.length)];
@@ -4293,8 +4141,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/aesthetic', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Aesthetic = JSON.parse(fs.readFileSync(__path +'/data/aesthetic.json'));
   const randAesthetic = Aesthetic[Math.floor(Math.random() * Aesthetic.length)];
@@ -4310,8 +4158,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/justina', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Justina = JSON.parse(fs.readFileSync(__path +'/data/justina.json'));
   const randJus = Justina[Math.floor(Math.random() * Justina.length)];
@@ -4327,8 +4175,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/sagiri', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Sagiri = JSON.parse(fs.readFileSync(__path +'/data/sagiri.json'));
   const randSagiri = Sagiri[Math.floor(Math.random() * Sagiri.length)];
@@ -4343,8 +4191,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/shota', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Shota = JSON.parse(fs.readFileSync(__path +'/data/shota.json'));
   const randShota = Shota[Math.floor(Math.random() * Shota.length)];
@@ -4359,8 +4207,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/nsfwloli', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Lol = JSON.parse(fs.readFileSync(__path +'/data/nsfwloli.json'));
   const randLol = Lol[Math.floor(Math.random() * Lol.length)];
@@ -4375,8 +4223,8 @@ res.json(loghandler.invalidKey)
 router.get('/wallpaper/hinata', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
   const Hinata = JSON.parse(fs.readFileSync(__path +'/data/hinata.json'));
   const randHin = Hinata[Math.floor(Math.random() * Hinata.length)];
@@ -4392,8 +4240,8 @@ res.json(loghandler.invalidKey)
 router.get('/random/quotes2', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://kocakz.herokuapp.com/api/random/text/quotes`))
         .then(response => response.json())
@@ -4404,7 +4252,7 @@ router.get('/random/quotes2', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4415,8 +4263,8 @@ router.get('/fun/simisimi-ar2', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://simsumi.herokuapp.com/api?text=${text}&lang=ar`))
@@ -4430,7 +4278,7 @@ router.get('/fun/simisimi-ar2', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4441,8 +4289,8 @@ router.get('/fun/simisimi-en2', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://simsumi.herokuapp.com/api?text=${text}&lang=eng`))
@@ -4456,7 +4304,7 @@ router.get('/fun/simisimi-en2', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4467,8 +4315,8 @@ router.get('/fun/simisimi-jp2', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://simsumi.herokuapp.com/api?text=${text}&lang=jp`))
@@ -4482,7 +4330,7 @@ router.get('/fun/simisimi-jp2', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4493,8 +4341,8 @@ router.get('/fun/simisimi-ind2', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://api.simsimi.net/v2/?text=${text}&lc=id`))
@@ -4508,7 +4356,7 @@ router.get('/fun/simisimi-ind2', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4519,8 +4367,8 @@ router.get('/fun/simisimi4', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://api.simsimi.net/v2/?text=${text}&lc=ar`))
@@ -4534,7 +4382,7 @@ router.get('/fun/simisimi4', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4545,8 +4393,8 @@ router.get('/fun/simisimi3', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://api.simsimi.net/v2/?text=${text}&lc=ph`))
@@ -4560,7 +4408,7 @@ router.get('/fun/simisimi3', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4571,8 +4419,8 @@ router.get('/fun/simisimi2', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://api.simsimi.net/v2/?text=${text}&lc=en`))
@@ -4586,7 +4434,7 @@ router.get('/fun/simisimi2', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4597,8 +4445,8 @@ router.get('/fun/simisimi', async (req, res, next) => {
         var Apikey = req.query.apikey
             text = req.query.text
    
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
 
        fetch(encodeURI(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`))
@@ -4612,7 +4460,7 @@ router.get('/fun/simisimi', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4622,8 +4470,8 @@ res.json(loghandler.invalidKey)
 router.get('/random/asmaulhusna', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/random/asmaulhusna`))
         .then(response => response.json())
@@ -4634,7 +4482,7 @@ router.get('/random/asmaulhusna', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4645,8 +4493,8 @@ router.get('/info/wikipedia', async (req, res, next) => {
         var Apikey = req.query.apikey,
             search = req.query.search
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/wiki?keyword=${search}`))
@@ -4658,7 +4506,7 @@ router.get('/info/wikipedia', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4670,8 +4518,8 @@ router.get('/info/drakorasia', async (req, res, next) => {
         var Apikey = req.query.apikey,
             search = req.query.search
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
 
        fetch(encodeURI(`http://docs-api-zahirrr.herokuapp.com/api/drakorasia?search=${search}`))
@@ -4683,7 +4531,7 @@ router.get('/info/drakorasia', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4694,8 +4542,8 @@ router.get('/fakedata', async (req, res, next) => {
         var Apikey = req.query.apikey,
             country = req.query.country
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!country) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter country"})
 
        fetch(encodeURI(`https://fakename-api-zhirrr.vercel.app/api/fakename?country=${country}`))
@@ -4707,7 +4555,7 @@ router.get('/fakedata', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4719,8 +4567,8 @@ router.get('/hilih', async (req, res, next) => {
         var Apikey = req.query.apikey,
             kata = req.query.kata
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
 
        fetch(encodeURI(`https://hilih-api-zhirrr.vercel.app/api/hilih?kata=${kata}`))
@@ -4732,7 +4580,7 @@ router.get('/hilih', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4744,8 +4592,8 @@ router.get('/music/liriklagu', async (req, res, next) => {
         var Apikey = req.query.apikey,
             lagu = req.query.query;
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!lagu) return res.json(loghandler.notquery)
         Lirik(lagu)
         .then((lirik) => {
@@ -4766,8 +4614,8 @@ router.get('/music/chordlagu', async (req, res, next) => {
         var Apikey = req.query.apikey,
             lagu = req.query.lagu
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/chord?q=${lagu}`))
@@ -4779,7 +4627,7 @@ router.get('/music/chordlagu', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4791,8 +4639,8 @@ router.get('/info/kbbi', async (req, res, next) => {
         var Apikey = req.query.apikey,
             kata = req.query.kata
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
         if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
 
        fetch(encodeURI(`https://kbbi-api-zhirrr.vercel.app/api/kbbi?text=${kata}`))
@@ -4804,7 +4652,7 @@ router.get('/info/kbbi', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4815,8 +4663,8 @@ res.json(loghandler.invalidKey)
 router.get('/info/covidindo', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/covid-indonesia`))
         .then(response => response.json())
@@ -4827,7 +4675,7 @@ router.get('/info/covidindo', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4838,8 +4686,8 @@ res.json(loghandler.invalidKey)
 router.get('/info/covidworld', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/world`))
         .then(response => response.json())
@@ -4850,7 +4698,7 @@ router.get('/info/covidworld', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4860,8 +4708,8 @@ res.json(loghandler.invalidKey)
 router.get('/random/meme', async (req, res, next) => {
         var Apikey = req.query.apikey
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/meme`))
         .then(response => response.json())
@@ -4872,7 +4720,7 @@ router.get('/random/meme', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4882,11 +4730,11 @@ res.json(loghandler.invalidKey)
 
 router.get('/info/kodepos', async (req, res, next) => {
         var Apikey = req.query.apikey,
-	    kota = req.query.kota
+        kota = req.query.kota
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
-	if(!kota) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kota"})
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
+    if(!kota) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kota"})
 
        fetch(encodeURI(`https://kodepos-api-zhirrr.vercel.app/?q=${kota}`))
         .then(response => response.json())
@@ -4897,7 +4745,7 @@ router.get('/info/kodepos', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4907,11 +4755,11 @@ res.json(loghandler.invalidKey)
 
 router.get('/translate', async (req, res, next) => {
         var Apikey = req.query.apikey,
-	    kata = req.query.kata
+        kata = req.query.kata
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
-	if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
+    if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/translate?text=${kata}`))
         .then(response => response.json())
         .then(data => {
@@ -4921,7 +4769,7 @@ router.get('/translate', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4931,11 +4779,11 @@ res.json(loghandler.invalidKey)
 
 router.get('/anime/kusonime', async (req, res, next) => {
         var Apikey = req.query.apikey,
-	    search = req.query.search
+        search = req.query.search
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
-	if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
+    if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/kusonime?search=${search}`))
         .then(response => response.json())
         .then(data => {
@@ -4945,7 +4793,7 @@ router.get('/anime/kusonime', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -4989,11 +4837,11 @@ router.get('/anime/loli', async(req, res, next) => {
 
 router.get('/anime/manga', async (req, res, next) => {
         var Apikey = req.query.apikey,
-	    search = req.query.search
+        search = req.query.search
             
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
-	if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
+    if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/manga?keyword=${search}`))
         .then(response => response.json())
         .then(data => {
@@ -5003,7 +4851,7 @@ router.get('/anime/manga', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -5013,8 +4861,8 @@ res.json(loghandler.invalidKey)
 
 router.get('/kuis/caklontong', async (req, res, next) => {
         var Apikey = req.query.apikey
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=caklontong`))
         .then(response => response.json())
         .then(data => {
@@ -5024,7 +4872,7 @@ router.get('/kuis/caklontong', async (req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
 } else {
 res.json(loghandler.invalidKey)
@@ -5085,7 +4933,7 @@ router.get("/photooxy/shadow", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5109,7 +4957,7 @@ router.get("/photooxy/romantic", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5135,7 +4983,7 @@ router.get("/photooxy/smoke", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5159,7 +5007,7 @@ router.get("/photooxy/burn-papper", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5183,7 +5031,7 @@ router.get("/photooxy/naruto", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5207,7 +5055,7 @@ router.get("/photooxy/love-message", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5231,7 +5079,7 @@ router.get("/photooxy/message-under-grass", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5257,7 +5105,7 @@ router.get("/photooxy/glitch", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5281,7 +5129,7 @@ router.get("/photooxy/double-heart", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5305,7 +5153,7 @@ router.get("/photooxy/coffe-cup", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5329,7 +5177,7 @@ router.get("/photooxy/love-text", async(req, res, next) => {
       res.json(error)
     });
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -5353,7 +5201,7 @@ router.get("/photooxy/butterfly", async(req, res, next) => {
       res.json(loghandler.error)
     })
     } else {
-    	res.json(loghandler.invalidKey)
+        res.json(loghandler.invalidKey)
     }
 });
 
@@ -7547,7 +7395,7 @@ router.get('/downloader/facebook2', async(req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
   } else {
     res.json(loghandler.invalidKey)
@@ -7574,7 +7422,7 @@ router.get('/web2plain-text', async(req, res, next) => {
              })
          })
          .catch(e => {
-         	res.json(loghandler.error)
+            res.json(loghandler.error)
 })
   } else {
     res.json(loghandler.invalidKey)
