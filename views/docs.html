@@ -11,21 +11,23 @@
 </head>
 
 <body>
-    <div class="text">
-        <div class="status">
-            <p>STATUS : <span class="typed-text"></span><span class="cursor typing"></span></p>
+    <div class="container">
+        <div class="text">
+            <div class="status">
+                <p>STATUS : <span class="typed-text"></span><span class="cursor typing"></span></p>
+            </div>
+            <hr>
+            <div class="readdocs">
+                <p>OPEN <a href="/docs" class="docs">DOCS.</a></p>
+            </div>
         </div>
-        <hr>
-        <div class="readdocs">
-            <p>OPEN <a href="/docs" class="docs">DOCS.</a></p>
+        <div class="bottom">
+            <p>
+                <a href="https://instagram.com/raznnaa_" target="_blank" rel="noopener noreferrer" class="sosmed mdi mdi-instagram align-center">
+                    Instagram
+                    </a>
+            </p>
         </div>
-    </div>
-    <div class="bottom">
-        <p>
-            <a href="https://instagram.com/raznnaa_" target="_blank" rel="noopener noreferrer" class="sosmed mdi mdi-instagram align-center">
-                Instagram
-                </a>
-        </p>
     </div>
 </body>
 <style>
@@ -156,6 +158,12 @@ div.bottom {
     bottom: 50px;
     transform: translate(-50%, -50%);
     margin: 0 auto
+}
+
+@media screen and (max-width:  922px) {
+    div.container {
+        width:  100%;
+    }
 }
 </style>
 <script>
