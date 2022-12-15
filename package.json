@@ -4,11 +4,7 @@
   "description": "turu",
   "main": "node index.js",
   "scripts": {
-    "start": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/inirey/RESTAPI.git"
+    "start": "node index.js"
   },
   "keywords": [
     "simple",
@@ -16,11 +12,6 @@
     "rest",
     "api"
   ],
-  "author": "Reyganz",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/inirey/RESTAPI/issues"
-  },
   "dependencies": {
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
@@ -58,6 +49,5 @@
     "urlencode": "^1.1.0",
     "api-rey": "1.1.0",
     "zrapi": "0.0.6"
-  },
-  "homepage": "https://github.com/inirey/RESTAPI#readme"
+  }
 }
